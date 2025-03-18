@@ -80,7 +80,7 @@ class Boid {
     const material = new THREE.MeshBasicMaterial({
       color: 0xFF0000,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0,
     });
     const mesh = new THREE.Mesh(geometry, material);
     this._group.add(mesh);
