@@ -491,7 +491,7 @@ class FishDemo extends game.Game {
   //;pad background texture (underwater scene)
    _LoadBackground() {
   const loader = new THREE.TextureLoader();
-  const texture = loader.load('./resources/invert.jpg');
+  const texture = loader.load('./resources/Invert.jpg');
   
   this._graphics._scene.background = texture;
 
