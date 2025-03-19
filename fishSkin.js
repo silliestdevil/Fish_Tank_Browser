@@ -363,7 +363,7 @@ _ApplySeek(destination) {
     const material = new THREE.MeshBasicMaterial({ 
       transparent: true, 
       color: 0xff0000,
-      opacity: 0.5 // Set to visible opacity
+      opacity: 0 // Set to visible opacity
     });
     this.debugMesh = new THREE.Mesh(geometry, material);
     this.game._graphics.Scene.add(this.debugMesh);
