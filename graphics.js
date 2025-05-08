@@ -20,44 +20,47 @@ export const graphics = (function() {
         if (!WEBGL.isWebGL2Available()) {
           return false;
         }
-
+      
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      
         this._threejs = new THREE.WebGLRenderer({
-            antialias: true,
+          antialias: true,
         });
         this._threejs.shadowMap.enabled = true;
         this._threejs.shadowMap.type = THREE.PCFSoftShadowMap;
         this._threejs.setPixelRatio(window.devicePixelRatio);
         this._threejs.setSize(window.innerWidth, window.innerHeight);
-
+      
         const target = document.getElementById('target');
         target.appendChild(this._threejs.domElement);
-
+      
         this._stats = new Stats();
-				target.appendChild(this._stats.dom);
-
+        target.appendChild(this._stats.dom);
+      
         window.addEventListener('resize', () => {
           this._OnWindowResize();
         }, false);
-
-        const fov = 60;
-        const aspect = 1080 / 1920;
+      
+        // Adjust camera settings based on device type
+        const fov = isMobile ? 75 : 60;
+        const aspect = window.innerWidth / window.innerHeight;
         const near = 1.0;
         const far = 1000.0;
         this._camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
         this._camera.position.set(200, 0, 2);
-        this._camera.lookAt(new THREE.Vector3(0, 80, 0)); 
-
+        this._camera.lookAt(new THREE.Vector3(0, 80, 0));
+      
         this._scene = new THREE.Scene();
-
+      
         this._CreateLights();
-
+      
         const composer = new EffectComposer(this._threejs);
         this._composer = composer;
         this._composer.addPass(new RenderPass(this._scene, this._camera));
-
+      
         return true;
       }
-
+      
       _CreateLights() {
         let light = new THREE.DirectionalLight(0xFFFFFF, 1, 100);
         light.position.set(100, 100, 100);
